@@ -1,0 +1,21 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    environment:
+      APP_ENV: production
+      APP_DEBUG: false
+    volumes: []
+
+  queue:
+    volumes: []
+
+  scheduler:
+    volumes: []
+
+  nginx:
+    volumes:
+      - ./public:/var/www/public
+      - ./docker/nginx/production.conf:/etc/nginx/conf.d/default.conf
