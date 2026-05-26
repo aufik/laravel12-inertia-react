@@ -1,21 +1,30 @@
 FROM php:8.4-fpm
 
-WORKDIR /var/www
-
 RUN apt-get update && apt-get install -y \
     git \
     curl \
-    unzip \
     zip \
+    unzip \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libzip-dev \
     libicu-dev \
-    libzip-dev
+    libpq-dev \
+    nodejs \
+    npm
 
 RUN docker-php-ext-install \
+    pdo \
     pdo_mysql \
+    mbstring \
+    bcmath \
     intl \
     zip \
-    bcmath
+    pcntl
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www
 
 CMD ["php-fpm"]

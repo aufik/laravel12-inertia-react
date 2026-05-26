@@ -7,13 +7,16 @@ services:
     environment:
       APP_ENV: local
       APP_DEBUG: true
+    volumes:
+      - ./:/var/www
 
   node:
-    image: node:24-alpine
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
     container_name: laravel_node
     restart: unless-stopped
     working_dir: /var/www
-    command: sh -c "npm install && npm run dev -- --host"
     ports:
       - "5173:5173"
     volumes:
